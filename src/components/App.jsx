@@ -1,4 +1,8 @@
 import { Component } from 'react';
+// import { nanoid } from 'nanoid';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './Contacts/ContactList';
+// import Filter from './Filter/Filter';
 
 class App extends Component {
   state = {
@@ -6,45 +10,29 @@ class App extends Component {
     name: '',
     number: '',
   };
+
+  handleAddContact = newContact => {
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
+  };
+
   render() {
     return (
-      <form>
-        <label>Name
-          <input
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </label>
-        <label>Number
-          <input
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-        </label>
-      </form>
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm
+          // contacts={this.state.contacts}
+          addContact={this.handleAddContact}
+        />
+        <h2>Contacts</h2>
+        {/* <Filter /> */}
+        <ul>
+          <ContactList contactsList={this.state.contacts} />
+          {/* {this.state.contacts.length !== 0 && <ContactList />} */}
+        </ul>
+      </div>
     );
   }
 }
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-//     >
-//       React homework template
-//     </div>
-//   );
-// };
 export default App;
