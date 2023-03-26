@@ -2,7 +2,7 @@ import { Component } from 'react';
 // import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './Contacts/ContactList';
-// import Filter from './Filter/Filter';
+import Filter from './Filter/Filter';
 import css from './ContactForm/ContactForm.module.css';
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    filtredContact: [],
   };
 
   handleAddContact = newContact => {
@@ -24,7 +25,7 @@ class App extends Component {
 
   deleteContact = e => {
     const index = this.state.contacts.indexOf(e.target);
-    console.log(index)
+    console.log(index);
 
     this.state.contacts.forEach((value, key) => {
       if (value.id === e.target.id) {
@@ -34,16 +35,16 @@ class App extends Component {
     });
   };
 
-  // filterContacts = e => {
-  //   // console.log(e.target.value);
-  //   // this.setState({ filter: e.target.value });
-  //   // this.state.contacts.includes(e.target.value)
-  //   this.filterContacts = this.state.contacts.filter(contact => {
-  //     return contact.name.toLowerCase().includes(e.target.value);
-  //   });
-  // };
-  //   console.log(this.state.contacts.name.includes(this.state.filter))
-  // };
+  handleFilterContacts = e => {
+    this.setState({ filter: e.target.value });
+  };
+
+  filterContacts = () => {
+    const filtredContact = this.state.contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(this.state.filter)
+    );
+    this.setState({ filtredContact });
+  };
 
   render() {
     return (
@@ -54,18 +55,20 @@ class App extends Component {
           addContact={this.handleAddContact}
         />
         <h2>Contacts</h2>
-        {/* <Filter
+        <Filter
           contactsList={this.state.contacts}
-          filter={this.state.filter}
-          // addContact={this.handleAddContact}
+          handleFilterContacts={this.handleFilterContacts}
           filterContacts={this.filterContacts}
-        /> */}
+        />
         <ul>
           <ContactList
             contactsList={this.state.contacts}
+            filterContacts={this.filterContacts}
+            filtredContact={this.state.filtredContact}
             deleteContact={this.deleteContact}
+            filter={this.state.filter}
+            
           />
-          {/* {this.state.contacts.length !== 0 && <ContactList />} */}
         </ul>
       </div>
     );

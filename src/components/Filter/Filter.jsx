@@ -7,8 +7,6 @@ class Filter extends Component {
   };
 
   render() {
-    // console.log(this.props.contactsList);
-    // console.log(this.props.filter);
     return (
       <div className={css.filter}>
         <label className={css.filter__title}>
@@ -20,7 +18,8 @@ class Filter extends Component {
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             // title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             // required
-            onChange={this.props.filterContacts}
+            onChange={this.props.handleFilterContacts}
+            onInput={this.props.filterContacts}
             value={this.props.filter}
           />
         </label>

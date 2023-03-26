@@ -26,8 +26,6 @@ class ContactForm extends Component {
   };
 
   handleAddContactNumber = e => {
-    // console.log(props);
-    // console.log(e.target.value);
     this.setState({ number: e.target.value });
   };
 
