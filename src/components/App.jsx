@@ -8,13 +8,13 @@ import css from './ContactForm/ContactForm.module.css';
 class App extends Component {
   state = {
     contacts: [
-      // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      // { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    filtredContact: [],
+    // filtredContact: [],
   };
 
   handleAddContact = newContact => {
@@ -40,13 +40,14 @@ class App extends Component {
   };
 
   filterContacts = () => {
-    const filtredContact = this.state.contacts.filter(contact =>
+    return this.state.contacts.filter(contact =>
       contact.name.toLocaleLowerCase().includes(this.state.filter)
     );
-    this.setState({ filtredContact });
+    // this.setState({ filtredContact });
   };
 
   render() {
+     const visibleContacts = this.filterContacts();
     return (
       <div className={css.phonebook}>
         <h1 className={css.form__title}>Phonebook</h1>
@@ -64,9 +65,10 @@ class App extends Component {
           <ContactList
             contactsList={this.state.contacts}
             filterContacts={this.filterContacts}
-            filtredContact={this.state.filtredContact}
+            // filtredContact={this.state.filtredContact}
             deleteContact={this.deleteContact}
             filter={this.state.filter}
+            filteredContact={visibleContacts}
             
           />
         </ul>

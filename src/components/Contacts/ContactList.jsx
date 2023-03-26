@@ -3,8 +3,7 @@ import css from '../Contacts/ContactList.module.css';
 
 class ContactList extends Component {
   render() {
-    if (!this.props.filter) {
-      return this.props.contactsList.map(contact => (
+      return this.props.filteredContact.map(contact => (
         <li key={contact.id} className={css.contact__item}>
           <p>{contact.name}:</p>
           <span>{contact.number}</span>
@@ -18,22 +17,6 @@ class ContactList extends Component {
           </button>
         </li>
       ));
-    } else {
-      return this.props.filtredContact.map(contact => (
-        <li key={contact.id} className={css.contact__item}>
-          <p>{contact.name}:</p>
-          <span>{contact.number}</span>
-          <button
-            type="button"
-            onClick={this.props.deleteContact}
-            className={css.delete__btn}
-            id={contact.id}
-          >
-            Delete
-          </button>
-        </li>
-      ));
-    }
   }
 }
 
