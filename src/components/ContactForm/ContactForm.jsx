@@ -18,10 +18,6 @@ class ContactForm extends Component {
   };
 
   handleAddContactName = e => {
-    if (this.props.contacts.find(obj => obj.name === e.target.value)) {
-      alert(`${e.target.value} is already in your contacts.`);
-      e.target.value = '';
-    }
     this.setState({ name: e.target.value, id: nanoid() });
   };
 

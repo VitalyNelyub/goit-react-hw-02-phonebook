@@ -9,7 +9,7 @@ class ContactList extends Component {
           <span>{contact.number}</span>
           <button
             type="button"
-            onClick={this.props.deleteContact}
+            onClick={() => this.props.deleteContact(contact.id)}
             className={css.delete__btn}
             id={contact.id}
           >

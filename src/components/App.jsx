@@ -14,25 +14,22 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    // filtredContact: [],
   };
 
   handleAddContact = newContact => {
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
+    if (this.state.contacts.find(contact => contact.name === newContact.name)) {
+      alert(`${newContact.name} is already in your contacts.`);
+    } else {
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, newContact],
+      }));
+    }
   };
 
-  deleteContact = e => {
-    const index = this.state.contacts.indexOf(e.target);
-    console.log(index);
-
-    this.state.contacts.forEach((value, key) => {
-      if (value.id === e.target.id) {
-        this.state.contacts.splice(key, 1);
-        this.setState(this.state.contacts);
-      }
-    });
+    deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
   };
 
   handleFilterContacts = e => {
@@ -43,11 +40,10 @@ class App extends Component {
     return this.state.contacts.filter(contact =>
       contact.name.toLocaleLowerCase().includes(this.state.filter)
     );
-    // this.setState({ filtredContact });
   };
 
   render() {
-     const visibleContacts = this.filterContacts();
+    const visibleContacts = this.filterContacts();
     return (
       <div className={css.phonebook}>
         <h1 className={css.form__title}>Phonebook</h1>
@@ -65,11 +61,9 @@ class App extends Component {
           <ContactList
             contactsList={this.state.contacts}
             filterContacts={this.filterContacts}
-            // filtredContact={this.state.filtredContact}
             deleteContact={this.deleteContact}
             filter={this.state.filter}
             filteredContact={visibleContacts}
-            
           />
         </ul>
       </div>
